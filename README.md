@@ -22,6 +22,7 @@
      > QRCodeUtil.createQRCode(`步骤2返回的二维码内容`, `图片的保存地址`)
         
     4.打开生成的二维码图片,使用Google Authenticator进行扫描,此时会添加一条记录,并显示6位数字(即根据`密钥`计算出的`TOTP`)
+    
     5.在代码中计算当前的`TOTP`值,并于Google Authenticator中的6位数字进行比较
      > GoogleAuthenticatorUtil.getTOTP(`密钥`, System.currentTimeMillis() / 1000 / 30)
 - 其他说明
