@@ -1,5 +1,11 @@
 ## Java Google Authenticator工具类
 
+- 参考资料
+    - [http://www.asaph.org/2016/04/google-authenticator-2fa-java.html](http://www.asaph.org/2016/04/google-authenticator-2fa-java.html)
+    - [twofactorauth](https://github.com/asaph/twofactorauth)
+    - [Google Authenticator JAVA 实例](http://awtqty-zhang.iteye.com/blog/1986275)
+    - [Google 账户两步验证的工作原理](https://blog.seetee.me/archives/73.html)
+    - [GoogleAuth](https://github.com/wstrange/GoogleAuth)
 - 所需工具(app)
     - Google Authenticator(密钥保存在本地,如果删除或手机遗失无法恢复)
     - Authy(密钥保存在云端,删除,手机遗失可恢复)
