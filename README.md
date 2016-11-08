@@ -11,6 +11,7 @@
     - commons-codec 1.10
     - zxing-javase  3.2.1
 - 使用说明
+
     1.生成`密钥`,并进行保存
         > GoogleAuthenticatorUtil.createSecretKey()
 
