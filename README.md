@@ -25,11 +25,11 @@
      > GoogleAuthenticatorUtil.createGoogleAuthQRCodeData(`密钥`, `用户账户`, `公司名称`)
         
     3.使用二维码工具类生成一张图片(或者返回一个图片流)
+     ![](doc/qrcode.png)
      > QRCodeUtil.createQRCode(`步骤2返回的二维码内容`, `图片的保存地址`)
-     > ![](doc/qrcode.png)
         
     4.打开生成的二维码图片,使用Google Authenticator进行扫描,此时会添加一条记录,并显示6位数字(即根据`密钥`计算出的`TOTP`)
-     > ![](doc/googleAuthenticator.png)
+     ![](doc/googleAuthenticator.png)
     
     5.在代码中计算当前的`TOTP`值,并于Google Authenticator中的6位数字进行比较
      > GoogleAuthenticatorUtil.getTOTP(`密钥`, System.currentTimeMillis() / 1000 / 30)
