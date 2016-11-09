@@ -18,10 +18,10 @@ import java.util.Map;
  * 二维码工具类
  */
 public class QRCodeUtil {
-    private static int width = 300;//二维码宽度(默认)
-    private static int height = 300;//二维码高度(默认)
-    private static String format = "png";//二维码文件格式
-    private static Map<EncodeHintType, Object> hints = new HashMap();//二维码参数
+    private static final int width = 300;//二维码宽度(默认)
+    private static final int height = 300;//二维码高度(默认)
+    private static final String format = "png";//二维码文件格式
+    private static final Map<EncodeHintType, Object> hints = new HashMap();//二维码参数
 
     static {
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8");//字符编码

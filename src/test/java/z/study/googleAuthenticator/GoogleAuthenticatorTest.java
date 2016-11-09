@@ -47,7 +47,7 @@ public class GoogleAuthenticatorTest {
         try {
             //生成密钥
             String secretKey = GoogleAuthenticatorUtil.createSecretKey();
-            //实际使用中应该保存数据库,避免密钥重复
+            //实际使用中应该保存数据库
             System.out.println(secretKey);
             //生成二维码数据
             String googleAuthQRCodeData = GoogleAuthenticatorUtil.createGoogleAuthQRCodeData(secretKey, account, issuer);

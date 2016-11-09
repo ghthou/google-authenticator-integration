@@ -26,7 +26,7 @@ public class GoogleAuthenticatorUtil {
     private static final int timeExcursion = 1;
 
     /**
-     * 创建一个密钥,要求不能出现重复,实际使用时,最好先判断数据库中是否存在
+     * 创建一个密钥
      */
     public static String createSecretKey() {
         SecureRandom random = new SecureRandom();
