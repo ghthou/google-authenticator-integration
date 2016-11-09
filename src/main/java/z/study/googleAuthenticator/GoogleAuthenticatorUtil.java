@@ -17,7 +17,7 @@ public class GoogleAuthenticatorUtil {
      * 用于防止客户端时间不精确导致生成的TOTP与服务器端的TOTP一直不一致
      * 如果为0,当前时间为 10:10:15
      * 则表明在 10:10:00-10:10:30 之间生成的TOTP 能校验通过
-     * 假如为1,则表明在
+     * 如果为1,则表明在
      * 10:09:30-10:10:00
      * 10:10:00-10:10:30
      * 10:10:30-10:11:00 之间生成的TOTP 能校验通过
@@ -70,7 +70,7 @@ public class GoogleAuthenticatorUtil {
 
 
     /**
-     * 生成googleAuthenticator二维码所需参数
+     * 生成Google Authenticator二维码所需参数
      * 格式 : otpauth://totp/{issuer}:{account}?secret={secret}&issuer={issuer}
      * 参数需要url编码 +号需要替换成%20
      * @param secret  密钥

@@ -1,12 +1,12 @@
 ## Java Google Authenticator工具类
 
 - 参考资料
-    - [http://www.asaph.org/2016/04/google-authenticator-2fa-java.html](http://www.asaph.org/2016/04/google-authenticator-2fa-java.html)
+    - [Google Authenticator compatible 2-Factor Auth in Java](http://www.asaph.org/2016/04/google-authenticator-2fa-java.html)
     - [twofactorauth](https://github.com/asaph/twofactorauth)
     - [Google Authenticator JAVA 实例](http://awtqty-zhang.iteye.com/blog/1986275)
     - [Google 账户两步验证的工作原理](https://blog.seetee.me/archives/73.html)
     - [GoogleAuth](https://github.com/wstrange/GoogleAuth)
-- 所需工具(app)
+- 所需工具
     - Google Authenticator(密钥保存在本地,如果删除或手机遗失无法恢复)
     - Authy(密钥保存在云端,删除,手机遗失可恢复)
 - 项目环境
@@ -29,7 +29,7 @@
         
     4.打开生成的二维码图片,使用Google Authenticator进行扫描,此时会添加一条记录,并显示6位数字(即根据`密钥`计算出的`TOTP`)
     
-    5.在代码中计算当前的`TOTP`值,并于Google Authenticator中的6位数字进行比较
+    5.在代码中计算当前的`TOTP`值,并与Google Authenticator中的6位数字进行比较
      > GoogleAuthenticatorUtil.getTOTP(`密钥`, System.currentTimeMillis() / 1000 / 30)
 - 其他说明
 
