@@ -1,12 +1,12 @@
-package z.study.googleAuthenticator;
-
-import org.apache.commons.codec.binary.Base32;
-import org.apache.commons.codec.binary.Hex;
-import org.ietf.tools.TOTP;
+package z.study.googleAuthenticator.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
+
+import org.apache.commons.codec.binary.Base32;
+import org.apache.commons.codec.binary.Hex;
+import org.ietf.tools.TOTP;
 
 /**
  * GoogleAuthenticator 工具类
@@ -55,11 +55,11 @@ public class GoogleAuthenticatorUtil {
     }
 
     /**
-     * 根据密钥获取TOTP值
-     * 返回字符串是因为数值有可能以0开头
-     * @param secretKey 密钥
-     * @param time      第几个30秒 System.currentTimeMillis() / 1000 / 30
-     */
+	 * 根据密钥获取验证码
+	 * 返回字符串是因为数值有可能以0开头
+	 * @param secretKey 密钥
+	 * @param time      第几个30秒 System.currentTimeMillis() / 1000 / 30
+	 */
     public static String getTOTP(String secretKey, long time) {
         Base32 base32 = new Base32();
         byte[] bytes = base32.decode(secretKey.toUpperCase());
@@ -68,17 +68,23 @@ public class GoogleAuthenticatorUtil {
         return TOTP.generateTOTP(hexKey, hexTime, "6");
     }
 
-
     /**
-     * 生成Google Authenticator二维码所需参数
-     * 格式 : otpauth://totp/{issuer}:{account}?secret={secret}&issuer={issuer}
-     * 参数需要url编码 +号需要替换成%20
-     * @param secret  密钥
-     * @param account 账户
-     * @param issuer  公司
-     */
-    public static String createGoogleAuthQRCodeData(String secret, String account, String issuer) throws UnsupportedEncodingException {
+	 * 生成Google Authenticator二维码所需信息
+	 * Google Authenticator 约定的二维码信息格式 : otpauth://totp/{issuer}:{account}?secret={secret}&issuer={issuer}
+	 * 参数需要url编码 +号需要替换成%20
+	 * @param secret  密钥 使用createSecretKey方法生成
+	 * @param account 用户账户 如: example@domain.com 138XXXXXXXX
+	 * @param issuer  服务名称 如: Google Github 印象笔记
+	 */
+	public static String createGoogleAuthQRCodeData(String secret, String account, String issuer) {
         String qrCodeData = "otpauth://totp/%s?secret=%s&issuer=%s";
-        return String.format(qrCodeData, URLEncoder.encode(issuer + ":" + account, "UTF-8").replace("+", "%20"), URLEncoder.encode(secret, "UTF-8").replace("+", "%20"), URLEncoder.encode(issuer, "UTF-8").replace("+", "%20"));
+		try {
+			return String.format(qrCodeData, URLEncoder.encode(issuer + ":" + account, "UTF-8").replace("+", "%20"), URLEncoder.encode(secret, "UTF-8")
+					.replace("+", "%20"), URLEncoder.encode(issuer, "UTF-8").replace("+", "%20"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return "";
     }
+
 }
