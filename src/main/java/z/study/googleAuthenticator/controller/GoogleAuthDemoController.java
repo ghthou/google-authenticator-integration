@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import z.study.googleAuthenticator.util.GoogleAuthenticatorUtil;
-import z.study.googleAuthenticator.util.QRCodeUtil;
+import z.study.googleAuthenticator.util.GoogleAuthenticatorUtils;
+import z.study.googleAuthenticator.util.QRCodeUtils;
 
 /**
  * 2016/12/6 14:05.
@@ -28,15 +28,15 @@ public class GoogleAuthDemoController {
 		//获取用户名称(从数据库或者缓存),可以是登录名,邮箱,手机(不参与运算,只是为了与其他服务作区分)
 		String account = "example@domain.com";
 		//生成密钥,并保存到数据库
-		String secretKey = GoogleAuthenticatorUtil.createSecretKey();
+		String secretKey = GoogleAuthenticatorUtils.createSecretKey();
 		//生成二维码信息
-		String googleAuthQRCodeData = GoogleAuthenticatorUtil.createGoogleAuthQRCodeData(secretKey, account, issuer);
+		String googleAuthQRCodeData = GoogleAuthenticatorUtils.createGoogleAuthQRCodeData(secretKey, account, issuer);
 
 		//返回二维码图片流
 		ServletOutputStream outputStream = null;
 		try {
 			outputStream = response.getOutputStream();
-			QRCodeUtil.writeToStream(googleAuthQRCodeData, outputStream);
+			QRCodeUtils.writeToStream(googleAuthQRCodeData, outputStream);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -58,7 +58,7 @@ public class GoogleAuthDemoController {
 		Map<String, Object> result = new HashMap<>();
 		//根据用户信息从数据库中获取保存时的密钥
 		String secretKey = "sjmig7qk644fq5cfmrxg4vcbcasirg2i";
-		boolean success = GoogleAuthenticatorUtil.verify(secretKey, code);
+		boolean success = GoogleAuthenticatorUtils.verify(secretKey, code);
 		if (success) {
 			//设置用户开启二步验证,更新用户信息
 			//生成备用验证码,保存到数据库,同时返回到前台显示,并提示用户进行保存
@@ -95,7 +95,7 @@ public class GoogleAuthDemoController {
 		Map<String, Object> result = new HashMap<>();
 		//根据用户信息从数据库中获取保存时的密钥
 		String secretKey = "sjmig7qk644cbcasirg2ifq5cfmrxg4v";
-		boolean success = GoogleAuthenticatorUtil.verify(secretKey, code);
+		boolean success = GoogleAuthenticatorUtils.verify(secretKey, code);
 		if (success) {
 			//设置登录cookie,session,缓存等
 		}

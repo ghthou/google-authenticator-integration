@@ -2,11 +2,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>z.study</groupId>
-    <artifactId>study-googleAuthenticator</artifactId>
+    <artifactId>googleAuthenticator</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
     <name>googleAuthenticator Maven Webapp</name>
     <url>http://maven.apache.org</url>
+
+    <build>
+        <finalName>googleAuthenticator</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
 
         <!--密钥生成-->
@@ -26,6 +41,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>4.3.4.RELEASE</version>
+        </dependency>
+        <!--演示controller所需-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

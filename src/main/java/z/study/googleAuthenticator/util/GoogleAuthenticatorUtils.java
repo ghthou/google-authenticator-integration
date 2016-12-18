@@ -11,7 +11,7 @@ import org.ietf.tools.TOTP;
 /**
  * GoogleAuthenticator 工具类
  */
-public class GoogleAuthenticatorUtil {
+public class GoogleAuthenticatorUtils {
     /**
      * 时间前后偏移量
      * 用于防止客户端时间不精确导致生成的TOTP与服务器端的TOTP一直不一致
