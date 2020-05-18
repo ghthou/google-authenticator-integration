@@ -1,2 +1,5 @@
-## Java 接入 Google Authenticator
-详情请看简书博客[Java 接入 Google Authenticator](http://www.jianshu.com/p/de903c074d77)
+###  Java 集成 Google Authenticator
+
+#### 博客地址
+
+[Java 集成 Google Authenticator](https://ghthou.github.io/2018/01/13/Java-接入-Google-Authenticator/)

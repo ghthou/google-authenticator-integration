@@ -1,53 +1,175 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>z.study</groupId>
-    <artifactId>googleAuthenticator</artifactId>
-    <packaging>war</packaging>
-    <version>1.0</version>
-    <name>googleAuthenticator Maven Webapp</name>
-    <url>http://maven.apache.org</url>
 
-    <build>
-        <finalName>googleAuthenticator</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>com.github.ghthou</groupId>
+    <artifactId>google-authenticator-integration</artifactId>
+    <version>1.0.0</version>
+
+    <name>google-authenticator-integration</name>
+    <description>Google Authenticator 集成</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+
+        <commons-text.version>1.8</commons-text.version>
+        <guava.version>29.0-jre</guava.version>
+        <!-- 二维码生成 https://github.com/zxing/zxing -->
+        <zxing.version>3.4.0</zxing.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-        <!--密钥生成-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
         </dependency>
-        <!--二维码生成-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${commons-text.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
-            <version>3.2.1</version>
+            <version>${zxing.version}</version>
         </dependency>
-        <!--演示controller所需-->
+
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>4.3.4.RELEASE</version>
-        </dependency>
-        <!--演示controller所需-->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>aliyun-repository</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <!--<editor-fold desc="配置 aliyun maven 镜像">-->
+            <!--仓库配置-->
+            <repositories>
+                <repository>
+                    <id>aliyun</id>
+                    <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                    <name>aliyun maven repository</name>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                        <!--pom.xml 文件检查间隔,interval: 间隔分钟,一周-->
+                        <updatePolicy>interval:10080</updatePolicy>
+                        <!--部署时检查校验和-->
+                        <checksumPolicy>ignore</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+
+            <!--插件仓库配置-->
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>aliyun</id>
+                    <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                    <name>aliyun maven plugin repository</name>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>interval:10080</updatePolicy>
+                        <checksumPolicy>ignore</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+            <!--</editor-fold>-->
+        </profile>
+        <profile>
+            <id>163-repository</id>
+            <!--<editor-fold desc="配置 163 maven 镜像">-->
+            <!--仓库配置-->
+            <repositories>
+                <repository>
+                    <id>netease</id>
+                    <url>http://mirrors.163.com/maven/repository/maven-public/</url>
+                    <name>163 maven repository</name>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                        <!--pom.xml 文件检查间隔,interval: 间隔分钟,一周-->
+                        <updatePolicy>interval:10080</updatePolicy>
+                        <!--部署时检查校验和-->
+                        <checksumPolicy>ignore</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+
+            <!--插件仓库配置-->
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>netease</id>
+                    <url>http://mirrors.163.com/maven/repository/maven-public/</url>
+                    <name>163 maven plugin repository</name>
+                    <layout>default</layout>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>interval:10080</updatePolicy>
+                        <checksumPolicy>ignore</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+            <!--</editor-fold>-->
+        </profile>
+    </profiles>
+
 </project>
