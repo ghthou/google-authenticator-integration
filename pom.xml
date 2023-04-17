@@ -19,7 +19,7 @@
     <properties>
         <java.version>1.8</java.version>
 
-        <commons-text.version>1.8</commons-text.version>
+        <commons-text.version>1.10.0</commons-text.version>
         <guava.version>29.0-jre</guava.version>
         <!-- 二维码生成 https://github.com/zxing/zxing -->
         <zxing.version>3.4.0</zxing.version>
